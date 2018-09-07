@@ -9,6 +9,14 @@ use App\Http\Requests\Api\UserRequest;
 
 class UsersController extends Controller
 {
+    //未完成，需加上客户状态（是否买车）
+    public function index()
+    {
+        $worker = \Auth::guard('worker_api')->user();
+        $users = User::where('worker_no', $worker->worker_no)->paginate(10);
+        return $this->response->paginator($users, new UserTransformer());
+    }
+
     public function me()
     {
         $user = $this->user();

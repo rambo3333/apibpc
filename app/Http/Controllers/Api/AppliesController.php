@@ -33,15 +33,16 @@ class AppliesController extends Controller
 
         //如果存在邀请人，获取该业务员ID，以及该业务员所属加盟商，代理商
         if ($request->worker_no) {
-            $worker = Worker::where('worker_no', $this->worker_no)->with('franchisee', 'agent')->first();
+            $worker = Worker::where('worker_no', $request->worker_no)->first();
             $data['worker_id'] = $worker->id;
-            $worker->franchisee->id ? $data['franchisee_id'] = $worker->franchisee->id : '';
-            $worker->agent->id ? $data['agent_id'] = $worker->agent->id : '';
+            $worker->franchisee_id ? $data['franchisee_id'] = $worker->franchisee_id : '';
+            $worker->agent_id ? $data['agent_id'] = $worker->agent_id : '';
         }
 
         $data['mobile'] = $verifyData['mobile'];
         $data['password'] = bcrypt($request->password);
         $data['user_id'] = $user->id;
+        $data['status'] = 0;
 
         Apply::create($data);
 

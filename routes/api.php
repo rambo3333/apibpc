@@ -92,6 +92,8 @@ $api->version('v1', [
                 //删除token
                 $api->delete('worker/authorizations/current', 'AuthorizationsController@destroy')
                     ->name('api.worker.authorizations.destroy');
+                //获取客户
+                $api->get('users', 'UsersController@index')->name('api.users.index');
             });
         });
     });
