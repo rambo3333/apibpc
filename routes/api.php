@@ -94,6 +94,8 @@ $api->version('v1', [
                     ->name('api.worker.authorizations.destroy');
                 //获取客户
                 $api->get('users', 'UsersController@index')->name('api.users.index');
+                //我的团队
+                $api->get('workers', 'WorkersController@index')->name('api.workers.index');
             });
         });
     });
