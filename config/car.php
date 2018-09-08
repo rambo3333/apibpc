@@ -14,4 +14,6 @@ return [
     'jqx2' => 1100, //家用6座以上
     'one_service1' => 3000, //（全款）成交总价 15万以下（含），单位：元
     'one_service2' => 4000, //（全款）成交总计
+
+    'image_domain' => 'https://res.bpche.com.cn/uploads/',
 ];

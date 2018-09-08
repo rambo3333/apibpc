@@ -39,6 +39,10 @@ class AppliesController extends Controller
             $worker->agent_id ? $data['agent_id'] = $worker->agent_id : '';
         }
 
+        $data['id_number_image_z'] = config('car.image_domain') . $data['id_number_image_z'];
+        $data['id_number_image_f'] = config('car.image_domain') . $data['id_number_image_f'];
+        $data['other_image'] = $data['other_image'] ? config('car.image_domain') . $data['other_image'] : '';
+        $data['bank_image'] = config('car.image_domain') . $data['bank_image'];
         $data['mobile'] = $verifyData['mobile'];
         $data['password'] = bcrypt($request->password);
         $data['user_id'] = $user->id;
