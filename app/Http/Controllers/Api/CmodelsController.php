@@ -45,4 +45,9 @@ class CmodelsController extends Controller
 
         return $this->response->collection($cmodels, new CmodelTransformer());
     }
+
+    public function show(Cmodel $cmodel)
+    {
+        return $this->response->item($cmodel, new CmodelTransformer());
+    }
 }

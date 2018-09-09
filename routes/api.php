@@ -44,6 +44,9 @@ $api->version('v1', [
             //Banner列表
             $api->get('banners', 'BannersController@index')->name('api.banners.index');
 
+            //详情
+            $api->get('cmodels/{cmodel}', 'CmodelsController@show')->name('api.cmodels.show');
+
             //购车
             //品牌列表
             $api->get('brands', 'BrandsController@index')->name('api.brands.index');
