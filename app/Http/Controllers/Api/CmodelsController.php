@@ -50,4 +50,35 @@ class CmodelsController extends Controller
     {
         return $this->response->item($cmodel, new CmodelTransformer());
     }
+
+    public function program(Request $request)
+    {
+        $cmodel_id = $request->cmodel_id;
+        $program_id = $request->program_id;
+
+        $cmodel = Cmodel::find($cmodel_id);
+
+        //系统指导价
+        $data['guide_price'] = $cmodel->guide_price;
+        //成交价
+        $data['transaction_price'] = $data['guide_price'] - $cmodel->pre_amount;
+        //购置税：购车款/(1+16%) X 购置税率(10%) (当车价优惠幅度超过指导价的 8% 时，购车款 = 指导价 * 92%)
+        $gck = $data['transaction_price'];
+        $pre_amount = intval($data['guide_price'] * 0.08);
+        if ($cmodel->pre_amount > $pre_amount) {
+            $gck = intval($data['guide_price'] * 0.92);
+        }
+        $data['gzs'] = $gck / 1.16 * 0.1;
+        //上牌费
+        $data['spf'] = config('car.spf');
+        //车船税(不足一年按当年剩余月算)
+        $syy = date('n');
+        $ccs =
+
+
+
+        if ($program_id == 1) {
+
+        }
+    }
 }
