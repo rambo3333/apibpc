@@ -11,6 +11,7 @@ use App\Transformers\CmodelTransformer;
 class CmodelsController extends Controller
 {
     protected $dszzrx;
+    protected $csryzrx;
 
     public function __construct()
     {
