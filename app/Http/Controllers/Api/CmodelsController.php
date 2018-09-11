@@ -10,6 +10,22 @@ use App\Transformers\CmodelTransformer;
 
 class CmodelsController extends Controller
 {
+    protected $dszzrx;
+
+    public function __construct()
+    {
+        $this->dszzrx = [
+            ['id' => 1, 'name' => '50万'],
+            ['id' => 2, 'name' => '100万'],
+        ];
+
+        $this->csryzrx = [
+            ['id' => 1, 'name' => '1万/座'],
+            ['id' => 2, 'name' => '2万/座'],
+            ['id' => 3, 'name' => '5万/座'],
+        ];
+    }
+
     public function index(Request $request, Cmodel $cmodel)
     {
         $query = $cmodel->query();
@@ -105,7 +121,76 @@ class CmodelsController extends Controller
 
         //商业险（全款）
         if ($program_id == 1) {
+            $data['one_dszzrx'] = $this->dszzrx;
+            $data['one_dszzrx_status'] = $cmodel->one_dszzrx_status;
+            $data['one_dszzrx_default'] = $cmodel->one_dszzrx_default;
+            $data['one_clssx'] = $cmodel->one_clssx;
+            $data['one_clssx_status'] = $cmodel->one_clssx_status;
+            $data['one_qcdqx'] = $cmodel->one_qcdqx;
+            $data['one_qcdqx_status'] = $cmodel->one_qcdqx_status;
+            $data['one_blddpsx'] = $cmodel->one_blddpsx;
+            $data['one_blddpsx_status'] = $cmodel->one_blddpsx_status;
+            $data['one_csryzrx'] = $this->csryzrx;
+            $data['one_csryzrx_status'] = $cmodel->one_csryzrx_status;
+            $data['one_csryzrx_default'] = $cmodel->one_csryzrx_default;
+            $data['one_bjmptyx'] = $cmodel->one_bjmptyx;
+            $data['one_bjmptyx_status'] = $cmodel->one_bjmptyx_status;
+            $data['one_wfzddsf'] = $cmodel->one_wfzddsf;
+            $data['one_wfzddsf_status'] = $cmodel->one_wfzddsf_status;
+            $data['one_zrssx'] = $cmodel->one_zrssx;
+            $data['one_zrssx_status'] = $cmodel->one_zrssx_status;
+            $data['one_clsshuix'] = $cmodel->one_clsshuix;
+            $data['one_clsshuix_status'] = $cmodel->one_clsshuix_status;
+        } elseif ($program_id == 2) {
+            //抵押费
+            $data['dyf'] = config('car.dyf');
 
+            $data['two_dszzrx'] = $this->dszzrx;
+            $data['two_dszzrx_status'] = $cmodel->two_dszzrx_status;
+            $data['two_dszzrx_default'] = $cmodel->two_dszzrx_default;
+            $data['two_clssx'] = $cmodel->two_clssx;
+            $data['two_clssx_status'] = $cmodel->two_clssx_status;
+            $data['two_qcdqx'] = $cmodel->two_qcdqx;
+            $data['two_qcdqx_status'] = $cmodel->two_qcdqx_status;
+            $data['two_blddpsx'] = $cmodel->two_blddpsx;
+            $data['two_blddpsx_status'] = $cmodel->two_blddpsx_status;
+            $data['two_csryzrx'] = $this->csryzrx;
+            $data['two_csryzrx_status'] = $cmodel->two_csryzrx_status;
+            $data['two_csryzrx_default'] = $cmodel->two_csryzrx_default;
+            $data['two_bjmptyx'] = $cmodel->two_bjmptyx;
+            $data['two_bjmptyx_status'] = $cmodel->two_bjmptyx_status;
+            $data['two_wfzddsf'] = $cmodel->two_wfzddsf;
+            $data['two_wfzddsf_status'] = $cmodel->two_wfzddsf_status;
+            $data['two_zrssx'] = $cmodel->two_zrssx;
+            $data['two_zrssx_status'] = $cmodel->two_zrssx_status;
+            $data['two_clsshuix'] = $cmodel->two_clsshuix;
+            $data['two_clsshuix_status'] = $cmodel->two_clsshuix_status;
+        } elseif ($program_id == 3) {
+            //抵押费
+            $data['dyf'] = config('car.dyf');
+
+            $data['three_dszzrx'] = $this->dszzrx;
+            $data['three_dszzrx_status'] = $cmodel->three_dszzrx_status;
+            $data['three_dszzrx_default'] = $cmodel->three_dszzrx_default;
+            $data['three_clssx'] = $cmodel->three_clssx;
+            $data['three_clssx_status'] = $cmodel->three_clssx_status;
+            $data['three_qcdqx'] = $cmodel->three_qcdqx;
+            $data['three_qcdqx_status'] = $cmodel->three_qcdqx_status;
+            $data['three_blddpsx'] = $cmodel->three_blddpsx;
+            $data['three_blddpsx_status'] = $cmodel->three_blddpsx_status;
+            $data['three_csryzrx'] = $this->csryzrx;
+            $data['three_csryzrx_status'] = $cmodel->three_csryzrx_status;
+            $data['three_csryzrx_default'] = $cmodel->three_csryzrx_default;
+            $data['three_bjmptyx'] = $cmodel->three_bjmptyx;
+            $data['three_bjmptyx_status'] = $cmodel->three_bjmptyx_status;
+            $data['three_wfzddsf'] = $cmodel->three_wfzddsf;
+            $data['three_wfzddsf_status'] = $cmodel->three_wfzddsf_status;
+            $data['three_zrssx'] = $cmodel->three_zrssx;
+            $data['three_zrssx_status'] = $cmodel->three_zrssx_status;
+            $data['three_clsshuix'] = $cmodel->three_clsshuix;
+            $data['three_clsshuix_status'] = $cmodel->three_clsshuix_status;
         }
+
+        return $this->response->array($data);
     }
 }

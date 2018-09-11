@@ -23,7 +23,6 @@ $api->version('v1', [
     $api->group([
         'middleware' => 'api.throttle'
     ], function($api) {
-
         $api->group([
             'limit' => config('api.rate_limits.sign.limit'),
             'expires' => config('api.rate_limits.sign.expires'),
@@ -37,13 +36,15 @@ $api->version('v1', [
             'expires' => config('api.rate_limits.access.expires'),
         ], function ($api) {
             //首页
-            // 推荐品牌
+            //推荐品牌
             $api->get('brands/recommend', 'BrandsController@recommend')->name('api.brands.recommend');
             //车型列表
             $api->get('stypes', 'StypesController@index')->name('api.stypes.index');
             //Banner列表
             $api->get('banners', 'BannersController@index')->name('api.banners.index');
 
+            //购车方案
+            $api->get('cmodels/program', 'CmodelsController@program')->name('api.cmodels.program');
             //详情
             $api->get('cmodels/{cmodel}', 'CmodelsController@show')->name('api.cmodels.show');
 
