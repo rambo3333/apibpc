@@ -16,14 +16,14 @@ class CmodelsController extends Controller
     public function __construct()
     {
         $this->dszzrx = [
-            ['id' => 1, 'name' => '50万'],
-            ['id' => 2, 'name' => '100万'],
+            ['id' => 1, 'name' => '50万', 'value' => config('car.dszzrx1')],
+            ['id' => 2, 'name' => '100万', 'value' => config('car.dszzrx2')],
         ];
 
         $this->csryzrx = [
-            ['id' => 1, 'name' => '1万/座'],
-            ['id' => 2, 'name' => '2万/座'],
-            ['id' => 3, 'name' => '5万/座'],
+            ['id' => 1, 'name' => '1万/座', 'value' => config('car.csryzrx1')],
+            ['id' => 2, 'name' => '2万/座', 'value' => config('car.csryzrx2')],
+            ['id' => 3, 'name' => '5万/座', 'value' => config('car.csryzrx3')],
         ];
     }
 
@@ -118,6 +118,11 @@ class CmodelsController extends Controller
             $data['jqx'] = config('car.jqx1');
         } else {
             $data['jqx'] = config('car.jqx2');
+        }
+
+        //车上人员责任险计算
+        foreach ($this->csryzrx as $key => $item) {
+            $this->csryzrx[$key]['value'] = $item['value'] * $cmodel->zw;
         }
 
         //商业险（全款）
