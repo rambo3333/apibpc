@@ -87,7 +87,7 @@ class CmodelsController extends Controller
         if ($cmodel->pre_amount > $pre_amount) {
             $gck = intval($data['guide_price'] * 0.92);
         }
-        $data['gzs'] = $gck / 1.16 * 0.1;
+        $data['gzs'] = floor($gck / 1.16 * 0.1);
 
         //上牌费
         $data['spf'] = config('car.spf');
