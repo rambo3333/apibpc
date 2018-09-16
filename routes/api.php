@@ -61,19 +61,25 @@ $api->version('v1', [
             //小程序登录
             $api->post('weapp/authorizations', 'AuthorizationsController@weappStore')
                 ->name('api.weapp.authorizations.store');
+            //刷新token
+            $api->put('authorizations/current', 'AuthorizationsController@update')->name('api.authorizations.update');
 
             // 图片验证码
             $api->post('captchas', 'CaptchasController@store')->name('api.captchas.store');
 
             //业务员登录
             $api->post('worker/authorizations', 'AuthorizationsController@workerStore')->name('api.worker.authorizations.store');
+            //业务员刷新token
+            $api->put('worker/authorizations/current', 'AuthorizationsController@workerUpdate')
+                ->name('api.worker.authorizations.update');
+            //业务员删除token
+            $api->delete('worker/authorizations/current', 'AuthorizationsController@destroy')
+                ->name('api.worker.authorizations.destroy');
 
             /**
              * 客户端 需要 token 验证的接口
              */
             $api->group(['middleware' => 'api.auth'], function ($api) {
-                //刷新token
-                $api->put('authorizations/current', 'AuthorizationsController@update')->name('api.authorizations.update');
                 //获取微信手机号
                 $api->put('weapp/users', 'UsersController@weappUpdate')->name('api.weapp.users.update');
                 //获取个人用户信息
@@ -90,12 +96,6 @@ $api->version('v1', [
             $api->group(['middleware' => ['worker', 'api.auth']], function ($api) {
                 //获取工作人员信息
                 $api->get('worker', 'WorkersController@me')->name('api.worker.me');
-                //刷新token
-                $api->put('worker/authorizations/current', 'AuthorizationsController@workerUpdate')
-                    ->name('api.worker.authorizations.update');
-                //删除token
-                $api->delete('worker/authorizations/current', 'AuthorizationsController@destroy')
-                    ->name('api.worker.authorizations.destroy');
                 //获取客户
                 $api->get('users', 'UsersController@index')->name('api.users.index');
                 //我的团队
