@@ -120,6 +120,9 @@ class CmodelsController extends Controller
             $data['jqx'] = config('car.jqx2');
         }
 
+        //商业险折扣
+        $data['syxzkbl'] = $cmodel->syxzkbl / 100;
+
         //车上人员责任险计算
         foreach ($this->csryzrx as $key => $item) {
             $this->csryzrx[$key]['value'] = $item['value'] * $cmodel->zw;
