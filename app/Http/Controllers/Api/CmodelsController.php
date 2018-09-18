@@ -95,7 +95,7 @@ class CmodelsController extends Controller
         if ($cmodel->pre_amount > $pre_amount) {
             $gck = intval($data['guide_price'] * 0.92);
         }
-        $data['gzs'] = floor($gck / 1.16 * 0.1);
+        $data['gzs'] = round(($gck / 1.16 * 0.1), 2);
 
         //上牌费
         $data['spf'] = config('car.spf');
@@ -132,32 +132,32 @@ class CmodelsController extends Controller
         $data['syxzkbl'] = $cmodel->syxzkbl / 100;
 
         //车辆损失险
-        $clssx = $data['transaction_price'] * config('car.clssx_rate');
+        $clssx = round($data['transaction_price'] * config('car.clssx_rate'), 2);
         //全车盗抢险
-        $qcdqx = $data['transaction_price'] * config('car.qcdqx_rate');
+        $qcdqx = round($data['transaction_price'] * config('car.qcdqx_rate'), 2);
         //玻璃单独破碎险
-        $blddpsx = $data['transaction_price'] * config('car.blddpsx_rate');
+        $blddpsx = round($data['transaction_price'] * config('car.blddpsx_rate'), 2);
         //无法找到第三方
-        $wfzddsf = $data['transaction_price'] * config('car.wfzddsf_rate');
+        $wfzddsf = round($data['transaction_price'] * config('car.wfzddsf_rate'), 2);
         //自燃险
-        $zrssx = $data['transaction_price'] * config('car.zrssx_rate');
+        $zrssx = round($data['transaction_price'] * config('car.zrssx_rate'), 2);
 
         //判断是否是奔驰宝马
         if (in_array($cmodel->brand_id, [1, 2])) {
-            $clssx = $clssx * config('car.bmbc');
-            $qcdqx = $qcdqx * config('car.bmbc');
-            $blddpsx = $blddpsx * config('car.bmbc');
-            $wfzddsf = $wfzddsf * config('car.bmbc');
-            $zrssx = $zrssx * config('car.bmbc');
+            $clssx = round($clssx * config('car.bmbc'), 2);
+            $qcdqx = round($qcdqx * config('car.bmbc'), 2);
+            $blddpsx = round($blddpsx * config('car.bmbc'), 2);
+            $wfzddsf = round($wfzddsf * config('car.bmbc'), 2);
+            $zrssx = round($zrssx * config('car.bmbc'), 2);
 
             foreach ($this->dszzrx as $key => $item) {
-                $this->dszzrx[$key]['value'] = $item['value'] * config('car.bmbc');
+                $this->dszzrx[$key]['value'] = round($item['value'] * config('car.bmbc'), 2);
             }
             foreach ($this->csryzrx_sj as $key => $item) {
-                $this->csryzrx_sj[$key]['value'] = $item['value'] * config('car.bmbc');
+                $this->csryzrx_sj[$key]['value'] = round($item['value'] * config('car.bmbc'), 2);
             }
             foreach ($this->csryzrx_ck as $key => $item) {
-                $this->csryzrx_ck[$key]['value'] = $item['value'] * config('car.bmbc');
+                $this->csryzrx_ck[$key]['value'] = round($item['value'] * config('car.bmbc'), 2);
             }
         }
 
