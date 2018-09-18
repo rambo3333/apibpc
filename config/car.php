@@ -15,14 +15,21 @@ return [
     'dszzrx1' => 1369.2, //第三者责任险 50万
     'dszzrx2' => 1783.6, //第三者责任险 100万
     'dszzrx3' => 2046.88, //第三者责任险 150万
-    'csryzrx1' => 50, //1万/座
-    'csryzrx2' => 60, //2万/座
-    'csryzrx3' => 70, //5万/座
+    'csryzrx_sj' => 28.7, //1万/座 （司机）
+    'csryzrx_ck' => 18.2, //1万/座 （乘客）
     'one_service1' => 3000, //（全款）成交总价 15万及以下，单位：元
     'one_service2' => 4000, //（全款）成交总价 30万及以下
     'one_service3' => 5000, //（全款）成交总价 30万以上
 
     'dyf' => 200, //抵押费 单位：元
+
+    'clssx_rate' => 0.016173,
+    'qcdqx_rate' => 0.003747,
+    'blddpsx_rate' => 0.00133,
+    'wfzddsf_rate' => 0.0004052,
+    'zrssx_rate' => 0.00084,
+
+    'bmbc' => 1.15,
 
     'image_domain' => 'https://res.bpche.com.cn/uploads/',
 ];

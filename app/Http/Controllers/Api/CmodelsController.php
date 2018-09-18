@@ -11,19 +11,27 @@ use App\Transformers\CmodelTransformer;
 class CmodelsController extends Controller
 {
     protected $dszzrx;
-    protected $csryzrx;
+    protected $csryzrx_sj;
+    protected $csryzrx_ck;
 
     public function __construct()
     {
         $this->dszzrx = [
             ['id' => 1, 'name' => '50万', 'value' => config('car.dszzrx1')],
             ['id' => 2, 'name' => '100万', 'value' => config('car.dszzrx2')],
+            ['id' => 3, 'name' => '150万', 'value' => config('car.dszzrx3')],
         ];
 
-        $this->csryzrx = [
-            ['id' => 1, 'name' => '1万/座', 'value' => config('car.csryzrx1')],
-            ['id' => 2, 'name' => '2万/座', 'value' => config('car.csryzrx2')],
-            ['id' => 3, 'name' => '5万/座', 'value' => config('car.csryzrx3')],
+        $this->csryzrx_sj = [
+            ['id' => 1, 'name' => '1万/座', 'value' => config('car.csryzrx_sj')],
+            ['id' => 2, 'name' => '2万/座', 'value' => config('car.csryzrx_sj') * 2],
+            ['id' => 3, 'name' => '5万/座', 'value' => config('car.csryzrx_sj') * 5],
+        ];
+
+        $this->csryzrx_ck = [
+            ['id' => 1, 'name' => '1万/座', 'value' => config('car.csryzrx_ck') * 4],
+            ['id' => 2, 'name' => '2万/座', 'value' => config('car.csryzrx_ck') * 2 * 4],
+            ['id' => 3, 'name' => '5万/座', 'value' => config('car.csryzrx_ck') * 5 * 4],
         ];
     }
 
@@ -123,9 +131,34 @@ class CmodelsController extends Controller
         //商业险折扣
         $data['syxzkbl'] = $cmodel->syxzkbl / 100;
 
-        //车上人员责任险计算
-        foreach ($this->csryzrx as $key => $item) {
-            $this->csryzrx[$key]['value'] = $item['value'] * $cmodel->zw;
+        //车辆损失险
+        $clssx = $data['transaction_price'] * config('car.clssx_rate');
+        //全车盗抢险
+        $qcdqx = $data['transaction_price'] * config('car.qcdqx_rate');
+        //玻璃单独破碎险
+        $blddpsx = $data['transaction_price'] * config('car.blddpsx_rate');
+        //无法找到第三方
+        $wfzddsf = $data['transaction_price'] * config('car.wfzddsf_rate');
+        //自燃险
+        $zrssx = $data['transaction_price'] * config('car.zrssx_rate');
+
+        //判断是否是奔驰宝马
+        if (in_array($cmodel->brand_id, [1, 2])) {
+            $clssx = $clssx * config('car.bmbc');
+            $qcdqx = $qcdqx * config('car.bmbc');
+            $blddpsx = $blddpsx * config('car.bmbc');
+            $wfzddsf = $wfzddsf * config('car.bmbc');
+            $zrssx = $zrssx * config('car.bmbc');
+
+            foreach ($this->dszzrx as $key => $item) {
+                $this->dszzrx[$key]['value'] = $item['value'] * config('car.bmbc');
+            }
+            foreach ($this->csryzrx_sj as $key => $item) {
+                $this->csryzrx_sj[$key]['value'] = $item['value'] * config('car.bmbc');
+            }
+            foreach ($this->csryzrx_ck as $key => $item) {
+                $this->csryzrx_ck[$key]['value'] = $item['value'] * config('car.bmbc');
+            }
         }
 
         //商业险（全款）
@@ -133,23 +166,22 @@ class CmodelsController extends Controller
             $data['one_dszzrx'] = $this->dszzrx;
             $data['one_dszzrx_status'] = $cmodel->one_dszzrx_status;
             $data['one_dszzrx_default'] = $cmodel->one_dszzrx_default;
-            $data['one_clssx'] = $cmodel->one_clssx;
+            $data['one_clssx'] = $clssx;
             $data['one_clssx_status'] = $cmodel->one_clssx_status;
-            $data['one_qcdqx'] = $cmodel->one_qcdqx;
+            $data['one_qcdqx'] = $qcdqx;
             $data['one_qcdqx_status'] = $cmodel->one_qcdqx_status;
-            $data['one_blddpsx'] = $cmodel->one_blddpsx;
+            $data['one_blddpsx'] = $blddpsx;
             $data['one_blddpsx_status'] = $cmodel->one_blddpsx_status;
-            $data['one_csryzrx'] = $this->csryzrx;
-            $data['one_csryzrx_status'] = $cmodel->one_csryzrx_status;
-            $data['one_csryzrx_default'] = $cmodel->one_csryzrx_default;
-            $data['one_bjmptyx'] = $cmodel->one_bjmptyx;
-            $data['one_bjmptyx_status'] = $cmodel->one_bjmptyx_status;
-            $data['one_wfzddsf'] = $cmodel->one_wfzddsf;
+            $data['one_sj_csryzrx'] = $this->csryzrx_sj;
+            $data['one_sj_csryzrx_status'] = $cmodel->one_sj_csryzrx_status;
+            $data['one_sj_csryzrx_default'] = $cmodel->one_sj_csryzrx_default;
+            $data['one_ck_csryzrx'] = $this->csryzrx_ck;
+            $data['one_ck_csryzrx_status'] = $cmodel->one_ck_csryzrx_status;
+            $data['one_ck_csryzrx_default'] = $cmodel->one_ck_csryzrx_default;
+            $data['one_wfzddsf'] = $wfzddsf;
             $data['one_wfzddsf_status'] = $cmodel->one_wfzddsf_status;
-            $data['one_zrssx'] = $cmodel->one_zrssx;
+            $data['one_zrssx'] = $zrssx;
             $data['one_zrssx_status'] = $cmodel->one_zrssx_status;
-            $data['one_clsshuix'] = $cmodel->one_clsshuix;
-            $data['one_clsshuix_status'] = $cmodel->one_clsshuix_status;
         } elseif ($program_id == 2) {
             //抵押费
             $data['dyf'] = config('car.dyf');
@@ -157,23 +189,22 @@ class CmodelsController extends Controller
             $data['two_dszzrx'] = $this->dszzrx;
             $data['two_dszzrx_status'] = $cmodel->two_dszzrx_status;
             $data['two_dszzrx_default'] = $cmodel->two_dszzrx_default;
-            $data['two_clssx'] = $cmodel->two_clssx;
+            $data['two_clssx'] = $clssx;
             $data['two_clssx_status'] = $cmodel->two_clssx_status;
-            $data['two_qcdqx'] = $cmodel->two_qcdqx;
+            $data['two_qcdqx'] = $qcdqx;
             $data['two_qcdqx_status'] = $cmodel->two_qcdqx_status;
-            $data['two_blddpsx'] = $cmodel->two_blddpsx;
+            $data['two_blddpsx'] = $blddpsx;
             $data['two_blddpsx_status'] = $cmodel->two_blddpsx_status;
-            $data['two_csryzrx'] = $this->csryzrx;
-            $data['two_csryzrx_status'] = $cmodel->two_csryzrx_status;
-            $data['two_csryzrx_default'] = $cmodel->two_csryzrx_default;
-            $data['two_bjmptyx'] = $cmodel->two_bjmptyx;
-            $data['two_bjmptyx_status'] = $cmodel->two_bjmptyx_status;
-            $data['two_wfzddsf'] = $cmodel->two_wfzddsf;
+            $data['two_sj_csryzrx'] = $this->csryzrx_sj;
+            $data['two_sj_csryzrx_status'] = $cmodel->two_sj_csryzrx_status;
+            $data['two_sj_csryzrx_default'] = $cmodel->two_sj_csryzrx_default;
+            $data['two_ck_csryzrx'] = $this->csryzrx_ck;
+            $data['two_ck_csryzrx_status'] = $cmodel->two_ck_csryzrx_status;
+            $data['two_ck_csryzrx_default'] = $cmodel->two_ck_csryzrx_default;
+            $data['two_wfzddsf'] = $wfzddsf;
             $data['two_wfzddsf_status'] = $cmodel->two_wfzddsf_status;
-            $data['two_zrssx'] = $cmodel->two_zrssx;
+            $data['two_zrssx'] = $zrssx;
             $data['two_zrssx_status'] = $cmodel->two_zrssx_status;
-            $data['two_clsshuix'] = $cmodel->two_clsshuix;
-            $data['two_clsshuix_status'] = $cmodel->two_clsshuix_status;
         } elseif ($program_id == 3) {
             //抵押费
             $data['dyf'] = config('car.dyf');
@@ -181,23 +212,22 @@ class CmodelsController extends Controller
             $data['three_dszzrx'] = $this->dszzrx;
             $data['three_dszzrx_status'] = $cmodel->three_dszzrx_status;
             $data['three_dszzrx_default'] = $cmodel->three_dszzrx_default;
-            $data['three_clssx'] = $cmodel->three_clssx;
+            $data['three_clssx'] = $clssx;
             $data['three_clssx_status'] = $cmodel->three_clssx_status;
-            $data['three_qcdqx'] = $cmodel->three_qcdqx;
+            $data['three_qcdqx'] = $qcdqx;
             $data['three_qcdqx_status'] = $cmodel->three_qcdqx_status;
-            $data['three_blddpsx'] = $cmodel->three_blddpsx;
+            $data['three_blddpsx'] = $blddpsx;
             $data['three_blddpsx_status'] = $cmodel->three_blddpsx_status;
-            $data['three_csryzrx'] = $this->csryzrx;
-            $data['three_csryzrx_status'] = $cmodel->three_csryzrx_status;
-            $data['three_csryzrx_default'] = $cmodel->three_csryzrx_default;
-            $data['three_bjmptyx'] = $cmodel->three_bjmptyx;
-            $data['three_bjmptyx_status'] = $cmodel->three_bjmptyx_status;
-            $data['three_wfzddsf'] = $cmodel->three_wfzddsf;
+            $data['three_sj_csryzrx'] = $this->csryzrx_sj;
+            $data['three_sj_csryzrx_status'] = $cmodel->three_sj_csryzrx_status;
+            $data['three_sj_csryzrx_default'] = $cmodel->three_sj_csryzrx_default;
+            $data['three_ck_csryzrx'] = $this->csryzrx_ck;
+            $data['three_ck_csryzrx_status'] = $cmodel->three_ck_csryzrx_status;
+            $data['three_ck_csryzrx_default'] = $cmodel->three_ck_csryzrx_default;
+            $data['three_wfzddsf'] = $wfzddsf;
             $data['three_wfzddsf_status'] = $cmodel->three_wfzddsf_status;
-            $data['three_zrssx'] = $cmodel->three_zrssx;
+            $data['three_zrssx'] = $zrssx;
             $data['three_zrssx_status'] = $cmodel->three_zrssx_status;
-            $data['three_clsshuix'] = $cmodel->three_clsshuix;
-            $data['three_clsshuix_status'] = $cmodel->three_clsshuix_status;
         }
 
         return $this->response->array($data);
