@@ -47,6 +47,8 @@ $api->version('v1', [
             $api->get('cmodels/program', 'CmodelsController@program')->name('api.cmodels.program');
             //详情
             $api->get('cmodels/{cmodel}', 'CmodelsController@show')->name('api.cmodels.show');
+            //下单
+            $api->post('orders', 'OrdersController@store')->name('api.orders.store');
 
             //购车
             //品牌列表
@@ -76,6 +78,9 @@ $api->version('v1', [
             $api->delete('worker/authorizations/current', 'AuthorizationsController@destroy')
                 ->name('api.worker.authorizations.destroy');
 
+            //微信支付结果回调
+            $api->post('payments/wechat-notify', 'PaymentController@paidNotify');
+
             /**
              * 客户端 需要 token 验证的接口
              */
@@ -88,6 +93,8 @@ $api->version('v1', [
                 $api->post('applies', 'AppliesController@store')->name('api.applies.store');
 				//上传图片
 				$api->post('images', 'ImagesController@store')->name('api.images.store');
+                //下单
+                $api->post('orders', 'OrdersController@store')->name('api.orders.store');
             });
 
             /**

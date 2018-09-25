@@ -24,7 +24,19 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'program_id' => 'required',
+            'cmodel_id' => 'required',
+            'dszzrx' => 'required',
+            'clssx' => 'required',
+            'qcdqx' => [
+                function ($attribute, $value, $fail) {
+                    if ($this->input('program_id') != 1 && empty($this->input('qcdqx'))) {
+                        $fail('该方案必须购买全车盗抢险');
+                        return;
+                    }
+                },
+            ],
+            'wfzddsf' => 'required',
         ];
     }
 }
