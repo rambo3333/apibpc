@@ -37,6 +37,22 @@ class OrderRequest extends FormRequest
                 },
             ],
             'wfzddsf' => 'required',
+            'dkfs' => [
+                function ($attribute, $value, $fail) {
+                    if ($this->input('program_id') != 1 && empty($this->input('dkfs'))) {
+                        $fail('该方案必须选择贷款方式');
+                        return;
+                    }
+                },
+            ],
+            'ygqs' => [
+                function ($attribute, $value, $fail) {
+                    if ($this->input('program_id') != 1 && empty($this->input('ygqs'))) {
+                        $fail('该方案必须选择期数');
+                        return;
+                    }
+                },
+            ],
         ];
     }
 }

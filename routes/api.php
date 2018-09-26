@@ -79,7 +79,7 @@ $api->version('v1', [
                 ->name('api.worker.authorizations.destroy');
 
             //微信支付结果回调
-            $api->post('payments/wechat-notify', 'PaymentController@paidNotify');
+            $api->post('wxpay/notify', 'PaymentController@notify');
 
             /**
              * 客户端 需要 token 验证的接口

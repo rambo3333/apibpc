@@ -22,7 +22,7 @@ class OrdersController extends Controller
             'body' => '预付定金',
             'out_trade_no' => $out_trade_no,
             'total_fee' => 1,
-            'notify_url' => 'https://pay.weixin.qq.com/wxpay/pay.action', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
+            'notify_url' => 'https://pay.weixin.qq.com/wxpay/notify', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             'trade_type' => 'JSAPI',
             'openid' => $user->weapp_openid,
         ]);
