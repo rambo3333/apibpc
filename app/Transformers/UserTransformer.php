@@ -17,6 +17,7 @@ class UserTransformer extends TransformerAbstract
             'avatar' => $user->avatar,
             'province' => $user->province,
             'city' => $user->city,
+            'worker_no' => $user->worker_no,
             'created_at' => $user->created_at->toDateString()
         ];
     }
