@@ -24,11 +24,17 @@ class AppliesController extends Controller
 
         $user = $this->user();
         $data = [];
-        $data = $request->only(['username', 'name', 'bank', 'id_number_image_z', 'id_number_image_f', 'other_image', 'bank_image']);
+        $data = $request->only(['name', 'bank', 'id_number_image_z', 'id_number_image_f', 'other_image', 'bank_image']);
 
         $apply_info = Apply::where('user_id', $user->id)->first();
         if ($apply_info) {
             return $this->response->errorUnauthorized('请勿重复提交申请');
+        }
+
+        //判断手机号是否唯一
+        $res = Worker::where('mobile', $verifyData['mobile'])->first();
+        if ($res) {
+            return $this->response->errorUnauthorized('该手机号已注册');
         }
 
         //如果存在邀请人，获取该业务员ID，以及该业务员所属加盟商，代理商

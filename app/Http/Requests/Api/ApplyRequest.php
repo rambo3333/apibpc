@@ -24,7 +24,6 @@ class ApplyRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'bail|required|unique:applies|between:3,20|regex:/^[A-Za-z0-9\-\_]+$/|',
             'password' => 'required|confirmed|string|min:6',
             'name' => 'required',
             'id_number_image_z' => 'required',

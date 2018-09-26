@@ -71,11 +71,11 @@ class AuthorizationsController extends Controller
     //普通登录（业务员）
     public function workerStore(Request $request)
     {
-        $credentials['username'] = $request->username;
+        $credentials['mobile'] = $request->username;
         $credentials['password'] = $request->password;
 
-        if (!$credentials['username']) {
-            return $this->response->errorUnauthorized('请输入用户名');
+        if (!$credentials['mobile']) {
+            return $this->response->errorUnauthorized('请输入手机号');
         }
 
         if (!Auth::guard('worker_api')->once($credentials)) {
