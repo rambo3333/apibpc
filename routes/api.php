@@ -107,6 +107,8 @@ $api->version('v1', [
                 $api->get('users', 'UsersController@index')->name('api.users.index');
                 //我的团队
                 $api->get('workers', 'WorkersController@index')->name('api.workers.index');
+                //我的二维码
+                $api->get('worker/qrcode', 'WorkersController@qrcode')->name('api.workers.qrcode');
             });
         });
     });

@@ -11,10 +11,10 @@ class WorkerTransformer extends TransformerAbstract
     {
         return [
             'id' => $worker->id,
-            'username' => $worker->username,
             'name' => $worker->name,
             'mobile' => $worker->mobile,
             'worker_no' => $worker->worker_no,
+            'qrcode_url' => $worker->qrcode_url,
             'created_at' => $worker->created_at->toDateString()
         ];
     }
