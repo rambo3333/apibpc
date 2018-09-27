@@ -31,5 +31,5 @@ return [
 
     'bmbc' => 1.15,
 
-    'image_domain' => 'https://res.bpche.com.cn/uploads/',
+    'image_domain' => 'http://res.bpche.com.cn/uploads/',
 ];
