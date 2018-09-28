@@ -40,7 +40,7 @@ class WorkersController extends Controller
 
         $miniProgram = \EasyWeChat::miniProgram();
 
-        $response = $miniProgram->app_code->getUnlimit('worker_no=' . $worker_no, [
+        $response = $miniProgram->app_code->getUnlimit($worker_no, [
             'page' => 'pages/index'
         ]);
 
