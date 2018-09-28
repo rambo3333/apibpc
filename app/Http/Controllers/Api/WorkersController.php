@@ -45,6 +45,7 @@ class WorkersController extends Controller
         ]);
 
         //二维码的存放路径
+        $path_qd = "images/qrcode/{$this->worker->id}/";
         $path = "uploads/images/qrcode/{$this->worker->id}/";
 
         if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
@@ -54,7 +55,7 @@ class WorkersController extends Controller
         }
 
         //更新业务员二维码
-        $qrcode_url = $path . $filename;
+        $qrcode_url = $path_qd . $filename;
         Worker::where('id', $this->worker->id)->update(['qrcode_url' => $qrcode_url]);
 
         return $this->response->array(['qrcode_url' => $qrcode_url]);
