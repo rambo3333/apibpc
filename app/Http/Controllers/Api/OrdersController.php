@@ -16,8 +16,8 @@ class OrdersController extends Controller
 
         $cmodel = Cmodel::find($cmodel_id);
 
-        //系统指导价
-        $guide_price = $cmodel->guide_price;
+        //固定费用
+        $data = gdfy($cmodel->guide_price, $cmodel->pre_amount, $cmodel->transaction_price, $cmodel->pl, $cmodel->zw);
 
 
         $program_text_arr = [

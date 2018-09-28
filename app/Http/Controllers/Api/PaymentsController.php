@@ -8,6 +8,6 @@ class PaymentsController extends Controller
 {
     public function notify()
     {
-        
+
     }
 }
