@@ -26,6 +26,7 @@ class OrderRequest extends FormRequest
         return [
             'program_id' => 'required',
             'cmodel_id' => 'required',
+            'worker_no' => 'required',
             'dszzrx' => 'required',
             'clssx' => 'required',
             'qcdqx' => [

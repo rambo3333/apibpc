@@ -31,7 +31,7 @@ return [
 
     'bmbc' => 1.15,
 
-    'dj' => 500, //定金
+    'dj' => 1, //定金
 
     'scene_one' => 'invite_user', //微信参数 场景：邀请用户
 
