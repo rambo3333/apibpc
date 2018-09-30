@@ -38,6 +38,14 @@ class OrdersController extends Controller
         $data['remark'] = $request->remark;
         //购车方案
         $data['program'] = $program_text_arr[$program_id];
+        //品牌名称
+        $data['brand'] = $cmodel->brand['name'];
+        //车系名称
+        $data['series'] = $cmodel->series['name'];
+        //车型名称
+        $data['cmodel'] = $cmodel->name;
+        //车型图片
+        $data['image'] = $cmodel->image;
         //车型ID
         $data['cmodel_id'] = $request->cmodel_id;
         //指导价
@@ -46,7 +54,10 @@ class OrdersController extends Controller
         $data['pre_amount'] = $cmodel->pre_amount;
         //成交价
         $data['price'] = $price;
-        //
+        //后续加上
+
+        //支付状态
+        $data['status'] = 'not_paid';
 
 
         /*switch ($program_id) {

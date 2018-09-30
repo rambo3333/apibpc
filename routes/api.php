@@ -95,6 +95,10 @@ $api->version('v1', [
 				$api->post('images', 'ImagesController@store')->name('api.images.store');
                 //下单
                 $api->post('orders', 'OrdersController@store')->name('api.orders.store');
+                //我的订单列表
+                $api->get('user/orders', 'UsersController@orders')->name('api.user.orders');
+                //我的订单详情
+                $api->get('user/order', 'UsersController@order')->name('api.user.order');
             });
 
             /**
