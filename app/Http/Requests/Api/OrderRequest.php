@@ -46,14 +46,6 @@ class OrderRequest extends FormRequest
                     }
                 },
             ],
-            'sfk_type' => [
-                function ($attribute, $value, $fail) {
-                    if ($this->input('program_id') != 1 && empty($this->input('sfk_type'))) {
-                        $fail('该方案必须选择首付款');
-                        return;
-                    }
-                },
-            ],
             'sfk' => [
                 function ($attribute, $value, $fail) {
                     if ($this->input('program_id') != 1 && empty($this->input('sfk'))) {
