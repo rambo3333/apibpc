@@ -91,6 +91,8 @@ $api->version('v1', [
                 $api->get('users/me', 'UsersController@me')->name('api.users.me');
                 //个代申请
                 $api->post('applies', 'AppliesController@store')->name('api.applies.store');
+                //个代申请
+                $api->post('v2/applies', 'V2\AppliesController@store')->name('v2api.applies.store');
 				//上传图片
 				$api->post('images', 'ImagesController@store')->name('api.images.store');
                 //下单
