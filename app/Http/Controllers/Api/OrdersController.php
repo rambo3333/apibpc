@@ -17,7 +17,6 @@ class OrdersController extends Controller
         $dkfs = $request->dkfs; //贷款方式（1：银行贷款、2：担保贷款、3：金融贷款、4：厂家贷款）
         $sfk = $request->sfk; //首付款选项（贷款购车：1：30%、2：40%、3：50%、4：自定义）（低首付购车：1：0%、2：5%、3：10%、4：20% 5：自定义）
         $sfk_value = $request->sfk_value; //首付款自定义的金额
-        $gps = $request->gps; //GPS（1：0、2：500、3：500、4：咨询客服）
         $qs = $request->ygqs; //月供期数（贷款购车：1:12期、2:24期、3:36期、4:48期、5:60期）（低首付购车：1:36期、2:48期、3:60期）
 
         $program_text_arr = [
@@ -165,7 +164,7 @@ class OrdersController extends Controller
             //抵押金
             $data['dyf'] = config('car.dyf');
             //GPS
-            $data['gps'] = $gps_text_arr[$gps];
+            $data['gps'] = $gps_text_arr[$dkfs];
             //手续费等杂费
             $data['sxf'] = 0;
             //续保金
