@@ -91,7 +91,7 @@ $api->version('v1', [
                 $api->get('users/me', 'UsersController@me')->name('api.users.me');
                 //个代申请
                 $api->post('applies', 'AppliesController@store')->name('api.applies.store');
-                //个代申请
+                //个代申请 v2版本
                 $api->post('v2/applies', 'V2\AppliesController@store')->name('v2api.applies.store');
 				//上传图片
 				$api->post('images', 'ImagesController@store')->name('api.images.store');
@@ -115,6 +115,10 @@ $api->version('v1', [
                 $api->get('workers', 'WorkersController@index')->name('api.workers.index');
                 //我的二维码
                 $api->get('worker/qrcode', 'WorkersController@qrcode')->name('api.workers.qrcode');
+                //我的收益列表
+                $api->get('worker/commissions', 'WorkersController@commissions')->name('api.workers.commissions');
+                //我的收益详情
+                $api->get('worker/commission', 'WorkersController@commission')->name('api.workers.commission');
             });
         });
     });

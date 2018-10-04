@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Worker;
+use App\Models\Commission;
 use Illuminate\Http\Request;
 use App\Transformers\WorkerTransformer;
+use App\Transformers\CommissionTransformer;
 use EasyWeChat\Factory;
 
 class WorkersController extends Controller
@@ -59,5 +61,29 @@ class WorkersController extends Controller
         Worker::where('id', $this->worker->id)->update(['qrcode_url' => $qrcode_url]);
 
         return $this->response->array(['qrcode_url' => $qrcode_url]);
+    }
+
+    public function commissions(Request $request)
+    {
+        $ym = $request->ym;
+
+        $days = date('t', strtotime($ym . '-01'));
+
+        $start_time = $ym . '-01 00:00:00';
+        $end_time = $ym . '-' . $days . ' 23:59:59';
+
+        $commissions = Commission::where('worker_id', $this->worker->id)
+                                    ->whereBetween('created_at', [$start_time, $end_time])->paginate(6);
+
+        return $this->response->paginator($commissions, new CommissionTransformer());
+    }
+
+    public function commission(Request $request)
+    {
+        $id = $request->id;
+
+        $commission = Commission::find($id);
+
+        return $this->response->item($commission, new CommissionTransformer());
     }
 }
