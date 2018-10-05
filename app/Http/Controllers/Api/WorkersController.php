@@ -63,6 +63,20 @@ class WorkersController extends Controller
         return $this->response->array(['qrcode_url' => $qrcode_url]);
     }
 
+    public function commissionSummary(Request $request)
+    {
+        $ym = $request->ym;
+
+        $ym_arr = explode('-', $ym);
+        $year = $ym_arr[0];
+        $month = $ym_arr[1];
+
+        $where = ['worker_id' => $this->worker->id, 'year' => $year, 'month' => $month];
+        $summary = \DB::table('commission_month')->where($where)->first();
+
+        return $this->response->array(['commission' => $summary->commission]);
+    }
+
     public function commissions(Request $request)
     {
         $ym = $request->ym;
@@ -73,7 +87,7 @@ class WorkersController extends Controller
         $end_time = $ym . '-' . $days . ' 23:59:59';
 
         $commissions = Commission::where('worker_id', $this->worker->id)
-                                    ->whereBetween('created_at', [$start_time, $end_time])->paginate(6);
+                                    ->whereBetween('created_at', [$start_time, $end_time])->paginate(10);
 
         return $this->response->paginator($commissions, new CommissionTransformer());
     }
@@ -85,5 +99,14 @@ class WorkersController extends Controller
         $commission = Commission::find($id);
 
         return $this->response->item($commission, new CommissionTransformer());
+    }
+
+    public function update(Request $request)
+    {
+        $attributes = $request->only(['id_number_image_z', 'id_number_image_f', 'other_image', 'bank_name', 'bank', 'bank_no']);
+
+        $this->worker->update($attributes);
+
+        return $this->response->item($this->worker, new WorkerTransformer());
     }
 }

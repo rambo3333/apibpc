@@ -115,6 +115,9 @@ $api->version('v1', [
                 $api->get('workers', 'WorkersController@index')->name('api.workers.index');
                 //我的二维码
                 $api->get('worker/qrcode', 'WorkersController@qrcode')->name('api.workers.qrcode');
+                //我的收益汇总
+                $api->get('worker/commission/summary', 'WorkersController@commissionSummary')
+                    ->name('api.workers.commission.summary');
                 //我的收益列表
                 $api->get('worker/commissions', 'WorkersController@commissions')->name('api.workers.commissions');
                 //我的收益详情
