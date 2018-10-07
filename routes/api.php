@@ -122,6 +122,8 @@ $api->version('v1', [
                 $api->get('worker/commissions', 'WorkersController@commissions')->name('api.workers.commissions');
                 //我的收益详情
                 $api->get('worker/commission', 'WorkersController@commission')->name('api.workers.commission');
+                //完善个人资料
+                $api->put('worker', 'WorkersController@update')->name('api.worker.update');
             });
         });
     });

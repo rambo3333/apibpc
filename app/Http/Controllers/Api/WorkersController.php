@@ -103,9 +103,13 @@ class WorkersController extends Controller
 
     public function update(Request $request)
     {
-        $attributes = $request->only(['id_number_image_z', 'id_number_image_f', 'other_image', 'bank_name', 'bank', 'bank_no']);
+        $data = $request->only(['id_number_image_z', 'id_number_image_f', 'other_image', 'bank_name', 'bank', 'bank_no']);
 
-        $this->worker->update($attributes);
+        $data['id_number_image_z'] = config('car.image_domain') . $data['id_number_image_z'];
+        $data['id_number_image_f'] = config('car.image_domain') . $data['id_number_image_f'];
+        $data['other_image'] = $data['other_image'] ? config('car.image_domain') . $data['other_image'] : '';
+
+        $this->worker->update($data);
 
         return $this->response->item($this->worker, new WorkerTransformer());
     }
