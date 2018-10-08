@@ -105,9 +105,14 @@ class WorkersController extends Controller
     {
         $data = $request->only(['id_number_image_z', 'id_number_image_f', 'other_image', 'bank_name', 'bank', 'bank_no']);
 
+        if (empty($data) || empty($data['id_number_image_z']) || empty($data['id_number_image_f']) ||
+            empty($data['bank_name']) || empty($data['bank']) || empty($data['bank_no'])) {
+            return $this->response->errorUnauthorized('请填写完整信息');
+        }
+
         $data['id_number_image_z'] = config('car.image_domain') . $data['id_number_image_z'];
         $data['id_number_image_f'] = config('car.image_domain') . $data['id_number_image_f'];
-        $data['other_image'] = $data['other_image'] ? config('car.image_domain') . $data['other_image'] : '';
+        $data['other_image'] = isset($data['other_image']) ? config('car.image_domain') . $data['other_image'] : '';
 
         $this->worker->update($data);
 

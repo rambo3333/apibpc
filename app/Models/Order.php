@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = ['order_no', 'user_id', 'worker_no', 'total_amount', 'remark', 'program', 'brand', 'series',
-                            'cmodel', 'image', 'cmodel_id', 'guide_price', 'pre_amount', 'price', 'dkfs', 'sfk_type',
+                            'cmodel', 'image', 'cmodel_id', 'guide_price', 'pre_amount', 'price', 'dkfs', 'sfk_text',
                             'sfk', 'sfk_total', 'ygje', 'ygqs', 'gzs', 'spf', 'ccs', 'jqx', 'gps', 'dyf', 'sxf', 'xbj',
-                            'dszzrx_id', 'dszzrx', 'dszzrx_bzj', 'clssx', 'qcdqx', 'blddpsx', 'sj_csryzrx_id',
-                            'sj_csryzrx', 'sj_csryzrx_bzj', 'ck_csryzrx_id', 'ck_csryzrx', 'ck_csryzrx_bzj', 'bjmptyx',
-                            'wfzddsf', 'zrssx', 'syxhj', 'syxzk', 'zkhje', 'cjzj', 'fwf', 'paid_at', 'payment_method',
-                            'payment_no', 'status', 'refund_status', 'refund_no', 'closed'];
+                            'dszzrx', 'dszzrx_text', 'clssx_option', 'clssx', 'qcdqx_option', 'qcdqx', 'blddpsx_option',
+                            'blddpsx', 'sj_csryzrx_option', 'sj_csryzrx', 'sj_csryzrx_text', 'ck_csryzrx_option',
+                            'ck_csryzrx', 'ck_csryzrx_text', 'bjmptyx', 'wfzddsf_option', 'wfzddsf', 'zrssx_option',
+                            'zrssx', 'syxhj', 'syxzk', 'zkhje', 'cjzj', 'fwf', 'paid_at', 'payment_method',
+                            'payment_no', 'status', 'refund_no', 'closed', 'contract'];
 
     protected static function boot()
     {
