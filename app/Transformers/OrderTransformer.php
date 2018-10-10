@@ -16,6 +16,7 @@ class OrderTransformer extends TransformerAbstract
             'not_paid' => '待支付',
             'paid' => '已支付',
             'paid_fail' => '支付失败',
+            'refund' => '退款成功',
         ];
 
         return [
@@ -27,6 +28,7 @@ class OrderTransformer extends TransformerAbstract
             'cmodel' => $order->cmodel,
             'image' => $order->image,
             'status' => $paid_text[$order->status],
+            'yf' => $order->yf,
             'created_at' => $order->created_at->toDateString(),
             'paid_at' => $order->paid_at
         ];

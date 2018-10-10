@@ -114,8 +114,9 @@ class WorkersController extends Controller
         $data['id_number_image_f'] = config('car.image_domain') . $data['id_number_image_f'];
         $data['other_image'] = isset($data['other_image']) ? config('car.image_domain') . $data['other_image'] : '';
 
-        $this->worker->update($data);
+        $worker = \Auth::guard('worker_api')->user();
+        $worker->update($data);
 
-        return $this->response->item($this->worker, new WorkerTransformer());
+        return $this->response->item($worker, new WorkerTransformer());
     }
 }
