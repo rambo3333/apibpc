@@ -186,12 +186,12 @@
             !empty($data['zrssx']) ? $data['zrssx'] = ($data['zrssx'] * 1.15) : ''; //自燃险
         }
 
-        //不计免赔险
+        //不计免赔险（不需要加上玻璃单独破碎险）
         $data['bjmptyx'] = 0;
         $data['bjmptyx'] += !empty($data['dszzrx']) ? ($data['dszzrx'] * 0.15) : 0; //累加第三者责任险
         $data['bjmptyx'] += !empty($data['clssx']) ? ($data['clssx'] * 0.15) : 0; //累加车辆损失险
         $data['bjmptyx'] += !empty($data['qcdqx']) ? ($data['qcdqx'] * 0.15) : 0; //累加全车盗抢险
-        $data['bjmptyx'] += !empty($data['blddpsx']) ? ($data['blddpsx'] * 0.15) : 0; //累加玻璃单独破碎险
+        //$data['bjmptyx'] += !empty($data['blddpsx']) ? ($data['blddpsx'] * 0.15) : 0; //累加玻璃单独破碎险
         $data['bjmptyx'] += !empty($data['sj_csryzrx']) ? ($data['sj_csryzrx'] * 0.15) : 0; //累加车上人员责任险司机
         $data['bjmptyx'] += !empty($data['ck_csryzrx']) ? ($data['ck_csryzrx'] * 0.15) : 0; //累加车上人员责任险乘客
         $data['bjmptyx'] += !empty($data['wfzddsf']) ? ($data['wfzddsf'] * 0.15) : 0; //累加无法找到第三方

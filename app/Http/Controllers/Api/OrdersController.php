@@ -152,7 +152,7 @@ class OrdersController extends Controller
             }
 
             //贷款金额
-            $dkje_arr = number_format($price - $data['sfk']);
+            $dkje_arr = explode(',', number_format($price - $data['sfk']));
             $data['dkje'] = $dkje_arr[0] * 1000;
             //判断贷款金额是否超过7成
             if ($data['dkje'] > intval($price * 0.7)) {
@@ -177,8 +177,7 @@ class OrdersController extends Controller
             //月供期数
             $data['ygqs'] = $dk_qs_text_arr[$qs];
             //加上贷款金服务费
-            $dk_fwf = fwf($data['cjzj'], $program_id, $data['dkje']);
-            $data['fwf'] += $dk_fwf;
+            $data['fwf'] = fwf($data['cjzj'], $program_id, $data['dkje']);
         }
 
         //低首付零首付
@@ -196,7 +195,7 @@ class OrdersController extends Controller
             }
 
             //贷款金额
-            $dkje_arr = number_format($price - $data['sfk']);
+            $dkje_arr = explode(',', number_format($price - $data['sfk']));
             $data['dkje'] = $dkje_arr[0] * 1000;
             //判断贷款金额是否超过7成
             if ($data['dkje'] > intval($price * 0.7)) {
@@ -221,8 +220,7 @@ class OrdersController extends Controller
             //月供期数
             $data['ygqs'] = $dsf_qs_text_arr[$qs];
             //加上贷款金服务费
-            $dk_fwf = fwf($data['cjzj'], $program_id, $data['dkje']);
-            $data['fwf'] += $dk_fwf;
+            $data['fwf'] = fwf($data['cjzj'], $program_id, $data['dkje']);
         }
 
         //创建一个的订单
