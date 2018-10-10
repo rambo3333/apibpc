@@ -48,4 +48,43 @@ class PaymentsController extends Controller
 
         return $response;
     }
+
+    public function refund()
+    {
+        $app = Factory::payment(config('wechat.payment.default'));
+
+        $response = $app->handleRefundedNotify(function ($message, $reqInfo, $fail) {
+            // 其中 $message['req_info'] 获取到的是加密信息
+            // $reqInfo 为 message['req_info'] 解密后的信息
+            // 你的业务逻辑...
+            //return true; // 返回 true 告诉微信“我已处理完成”
+            // 或返回错误原因 $fail('参数格式校验错误');
+
+            // 没有找到对应的订单，原则上不可能发生，保证代码健壮性
+            if(!$order = Order::where('order_no', $reqInfo['out_trade_no'])->first()) {
+                return $fail('未找到对应的订单');
+            }
+
+            if ($reqInfo['refund_status'] === 'SUCCESS') {
+                // 退款成功，将订单退款状态改成退款成功
+                $order->update([
+                    'status' => Order::STATUS_REFUND,
+                    'refund_status' => Order::REFUND_STATUS_SUCCESS,
+                ]);
+
+                return true;
+            } else {
+                // 退款失败，将具体状态存入 extra 字段，并表退款状态改成失败
+                $extra = $order->extra;
+                $extra['refund_failed_code'] = $reqInfo['refund_status'];
+                $order->update([
+                    'refund_status' => Order::REFUND_STATUS_FAILED,
+                ]);
+
+                return $fail('退款失败');
+            }
+        });
+
+        return $response;
+    }
 }
