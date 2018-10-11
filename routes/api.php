@@ -80,8 +80,6 @@ $api->version('v1', [
 
             //微信支付结果回调
             $api->post('wxpay/notify', 'PaymentsController@notify');
-            //微信退款结果回调
-            $api->post('wxpay/refund', 'PaymentsController@refund');
 
             /**
              * 客户端 需要 token 验证的接口
