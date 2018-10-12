@@ -154,12 +154,14 @@ class OrdersController extends Controller
             //贷款金额
             $dkje_arr = explode(',', number_format($price - $data['sfk']));
             $data['dkje'] = $dkje_arr[0] * 1000;
-            //判断贷款金额是否超过7成
-            if ($data['dkje'] > intval($price * 0.7)) {
-                return $this->response->error('贷款金额不能超过70%', 422);
-            }
+
             //贷款金额要千位取整，其余部分挪到首付款
             $data['sfk'] += $dkje_arr[1];
+
+            //判断首付金额是否超过7成
+            if ($data['sfk'] > intval($price * 0.7)) {
+                return $this->response->error('首付金额不能超过70%', 422);
+            }
 
             //抵押金
             $data['dyf'] = config('car.dyf');
@@ -197,12 +199,14 @@ class OrdersController extends Controller
             //贷款金额
             $dkje_arr = explode(',', number_format($price - $data['sfk']));
             $data['dkje'] = $dkje_arr[0] * 1000;
-            //判断贷款金额是否超过7成
-            if ($data['dkje'] > intval($price * 0.7)) {
-                return $this->response->error('贷款金额不能超过70%', 422);
-            }
+
             //贷款金额要千位取整，其余部分挪到首付款
             $data['sfk'] += $dkje_arr[1];
+
+            //判断首付金额是否超过7成
+            if ($data['sfk'] > intval($price * 0.7)) {
+                return $this->response->error('首付金额不能超过70%', 422);
+            }
 
             //抵押金
             $data['dyf'] = config('car.dyf');
