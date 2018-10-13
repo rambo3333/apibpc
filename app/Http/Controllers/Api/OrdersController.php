@@ -239,7 +239,7 @@ class OrdersController extends Controller
         $result = $app->order->unify([
             'body' => '预付定金',
             'out_trade_no' => $order->order_no,
-            'total_fee' => 1,
+            'total_fee' => config('car.dj'),
             'notify_url' => 'https://api.bpche.com.cn/wxpay/notify', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             'trade_type' => 'JSAPI',
             'openid' => $user->weapp_openid,
