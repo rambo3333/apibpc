@@ -9,7 +9,7 @@ class Worker extends Authenticatable implements JWTSubject
 {
     protected $fillable = ['agent_id', 'franchisee_id', 'username', 'password', 'name', 'mobile', 'worker_no',
                             'id_number_image_z', 'id_number_image_f', 'other_image', 'bank_image', 'bank_name',
-                            'bank_no', 'bank', 'parent_id', 'user_id', 'qrcode_url'];
+                            'bank_no', 'bank', 'parent_id', 'user_id', 'qrcode_url', 'client_num', 'client_total_num'];
 
     public function franchisee()
     {
@@ -29,5 +29,33 @@ class Worker extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    //获取当前个代级别
+    public function getLevelName($level)
+    {
+        switch ($level) {
+            case 1:
+                return config('car.level1_name');
+            case 2:
+                return config('car.level2_name');
+            case 3:
+                return config('car.level3_name');
+            case 4:
+                return config('car.level4_name');
+        }
+    }
+
+    //获取当前管理级别
+    public function getManageLevelName($level)
+    {
+        switch ($level) {
+            case 1:
+                return config('car.manage_level1_name');
+            case 2:
+                return config('car.manage_level2_name');
+            case 3:
+                return config('car.manage_level3_name');
+        }
     }
 }

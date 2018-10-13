@@ -36,4 +36,15 @@ return [
     'scene_one' => 'invite_user', //微信参数 场景：邀请用户
 
     'image_domain' => 'http://res.bpche.com.cn/uploads/',
+
+    //级别名称
+    'level1_name' => '新手上路',
+    'level2_name' => '车手',
+    'level3_name' => '车帝',
+    'level4_name' => '车神',
+
+    //管理级别名称
+    'manage_level1_name' => '支队长',
+    'manage_level2_name' => '大队长',
+    'manage_level3_name' => '总队长',
 ];

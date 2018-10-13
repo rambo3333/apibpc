@@ -21,6 +21,9 @@ class WorkerTransformer extends TransformerAbstract
             'bank_name' => $worker->bank_name,
             'bank_no' => $worker->bank_no,
             'bank' => $worker->bank,
+            'level_name' => $worker->getLevelName($worker->level),
+            'star' => $worker->star,
+            'manage_level_name' => $worker->manage_level ? $worker->getManageLevelName($worker->manage_level) : '',
             'created_at' => $worker->created_at->toDateString()
         ];
     }
