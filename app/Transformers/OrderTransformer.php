@@ -28,7 +28,7 @@ class OrderTransformer extends TransformerAbstract
             'cmodel' => $order->cmodel,
             'image' => $order->image,
             'status' => $paid_text[$order->status],
-            'yf' => $order->yf,
+            'yf' => is_null($order->yf) ? '等待平台确认订单' : $order->yf,
             'created_at' => $order->created_at->toDateString(),
             'paid_at' => $order->paid_at
         ];

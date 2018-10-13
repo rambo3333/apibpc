@@ -11,7 +11,7 @@ class CommissionTransformer extends TransformerAbstract
     {
         return [
             'id' => $commission->id,
-            'type' => $commission::$typeMap[$commission->type],
+            'type' => Commission::$typeMap[$commission->type],
             'thrid_name' => $commission->third['name'],
             'order_no' => $commission->order_no,
             'user' => $commission->user['mobile'],
