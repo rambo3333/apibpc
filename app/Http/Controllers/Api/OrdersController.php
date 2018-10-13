@@ -175,7 +175,7 @@ class OrdersController extends Controller
             $data['sfk_total'] = $data['sfk'] + $data['gzs'] + $data['spf'] + $data['ccs'] + $data['jqx'] +
                                     $data['zkhje'] + $data['dyf'] + intval($data['gps']) + $data['sxf'] + $data['xbj'];
             //月供金额（贷款金额 * 万元系数 / 10000 = 月供）
-            $data['ygje'] = ($dkfs == 4) ? '咨询客服' : round(($dk_dkfs_xs_arr[$dkfs] * $data['dkje'] / 10000), 2);
+            $data['ygje'] = ($dkfs == 4 || $qs != 3) ? '咨询客服' : round(($dk_dkfs_xs_arr[$dkfs] * $data['dkje'] / 10000), 2);
             //月供期数
             $data['ygqs'] = $dk_qs_text_arr[$qs];
             //加上贷款金服务费
