@@ -40,6 +40,11 @@ class AppliesController extends Controller
         //如果存在邀请人，获取该业务员ID，以及该业务员所属加盟商，代理商
         if ($request->worker_no) {
             $worker = Worker::where('worker_no', $request->worker_no)->first();
+            //判断该邀请人是否存在
+            if (empty($worker)) {
+                return $this->response->errorUnauthorized('请输入正确的介绍人编号');
+            }
+
             $data['worker_id'] = $worker->id;
             $worker->franchisee_id ? $data['franchisee_id'] = $worker->franchisee_id : '';
             $worker->agent_id ? $data['agent_id'] = $worker->agent_id : '';
