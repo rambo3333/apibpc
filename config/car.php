@@ -47,4 +47,13 @@ return [
     'manage_level1_name' => '支队长',
     'manage_level2_name' => '大队长',
     'manage_level3_name' => '总队长',
+
+    //最大星星数量
+    'level1_star_max' => 2,
+    'level2_star_max' => 3,
+    'level3_star_max' => 4,
+    'level4_star_max' => 5,
+
+    //星星对应的新增客户数
+    'client_to_star' => 30,
 ];

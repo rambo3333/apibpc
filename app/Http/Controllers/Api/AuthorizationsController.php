@@ -46,6 +46,22 @@ class AuthorizationsController extends Controller
             $user->weapp_openid = $data['openid'];
             $user->weixin_session_key = $data['session_key'];
             $user->worker_no = $worker_no ?: 0;
+            if ($user->worker_no) {
+                $worker = Worker::where(['worker_no' => $user->worker_no])->first();
+                //判断该业务员是否存在
+                if (!empty($worker)) {
+                    //考核期内的客户数、客户数总计加 1，未超过等级限制的星星数量加 1，等于等级限制的星星数量，不加 1
+                    $worker_data['client_num'] = $worker->client_num + 1;
+                    $worker_data['client_total_num'] = $worker->client_total_num + 1;
+                    $current_star_max = $worker->getStarMax($worker->level); //当前级别的最大星星数
+                    $cureent_star_client = $worker->star * config('car.client_to_star'); //当前星星数换算的人数
+                    if (($worker->star < $current_star_max) &&
+                        ($worker_data['client_num'] == ($cureent_star_client + config('car.client_to_star')))) {
+                        $worker_data['star'] = $worker->star + 1;
+                    }
+                    $worker->update($worker_data);
+                }
+            }
 
             //注册用户
             $user->save();
