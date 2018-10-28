@@ -17,7 +17,7 @@ class StypeTransformer extends TransformerAbstract
             'name' => $stype->name,
             'image' => $stype->image,
             'mark_image' => $stype->mark_image,
-            'cmodels' => $this->transformCmodels($stype->cmodels()->take(5)->get()),
+            'cmodels' => $this->transformCmodels($stype->cmodels()->take(10)->get()),
         ];
     }
 
