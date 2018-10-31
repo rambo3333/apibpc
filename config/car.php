@@ -55,5 +55,5 @@ return [
     'level4_star_max' => 5,
 
     //星星对应的新增客户数
-    'client_to_star' => 30,
+    'client_to_star' => 50,
 ];

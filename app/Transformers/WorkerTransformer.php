@@ -23,6 +23,8 @@ class WorkerTransformer extends TransformerAbstract
             'bank' => $worker->bank,
             'level_name' => $worker->getLevelName($worker->level),
             'star' => $worker->star,
+            'client_num' => $worker->client_num,
+            'max_client_num' => $worker->getStarMax($worker->level) * config('car.client_to_star'),
             'manage_level_name' => $worker->manage_level ? $worker->getManageLevelName($worker->manage_level) : '',
             'created_at' => $worker->created_at->toDateString()
         ];
